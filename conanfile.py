@@ -16,8 +16,8 @@ class Libmowgli2Conan(ConanFile):
     exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "with_openssl": [True, False]}
-    default_options = "shared=False", "fPIC=True", "with_openssl=True"
-    source_subfolder = "source_subfolder"
+    default_options = {'shared': False, 'fPIC': True, 'with_openssl': True}
+    _source_subfolder = "source_subfolder"
     autotools = None
 
     def config_options(self):
@@ -29,12 +29,12 @@ class Libmowgli2Conan(ConanFile):
 
     def requirements(self):
         if self.options.with_openssl:
-            self.requires.add("OpenSSL/1.1.0g@conan/stable")
+            self.requires.add("openssl/1.1.0l")
 
     def source(self):
         tools.get("{0}/archive/v{1}.tar.gz".format(self.homepage, self.version))
         extracted_dir = self.name + "-" + self.version
-        os.rename(extracted_dir, self.source_subfolder)
+        os.rename(extracted_dir, self._source_subfolder)
 
     def configure_autotools(self):
         if not self.autotools:
@@ -42,19 +42,19 @@ class Libmowgli2Conan(ConanFile):
             args.extend(['--enable-shared', '--disable-static'] if self.options.shared else ['--enable-static', '--disable-shared'])
             args.append('--with-openssl' if self.options.with_openssl else '--without-openssl')
             self.autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
-            with tools.chdir(self.source_subfolder):
+            with tools.chdir(self._source_subfolder):
                 self.autotools.configure(args=args)
         return self.autotools
 
     def build(self):
         autotools = self.configure_autotools()
-        with tools.chdir(self.source_subfolder):
+        with tools.chdir(self._source_subfolder):
             autotools.make()
 
     def package(self):
-        self.copy(pattern="COPYING", dst="licenses", src=self.source_subfolder)
+        self.copy(pattern="COPYING", dst="licenses", src=self._source_subfolder)
         autotools = self.configure_autotools()
-        with tools.chdir(self.source_subfolder):
+        with tools.chdir(self._source_subfolder):
             autotools.install()
 
     def package_info(self):
