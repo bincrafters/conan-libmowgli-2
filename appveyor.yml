@@ -4,7 +4,6 @@ environment:
     PYTHON_HOME: "C:\\Python37"
 
     matrix:
-        - MINGW_CONFIGURATIONS: '4.9@x86_64@seh@posix, 5@x86_64@seh@posix, 6@x86_64@seh@posix, 7@x86_64@seh@posix'
 
 install:
   - set PATH=%PYTHON_HOME%;%PYTHON_HOME%/Scripts/;%PATH%

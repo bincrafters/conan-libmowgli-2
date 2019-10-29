@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from conans import ConanFile, AutoToolsBuildEnvironment, tools
 import os
 
@@ -26,6 +23,7 @@ class Libmowgli2Conan(ConanFile):
 
     def configure(self):
         del self.settings.compiler.libcxx
+        del self.settings.compiler.cppstd
 
     def requirements(self):
         if self.options.with_openssl:
