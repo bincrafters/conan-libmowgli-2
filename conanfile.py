@@ -8,7 +8,6 @@ class Libmowgli2Conan(ConanFile):
     description = "Generic runtime for atheme applications "
     url = "https://github.com/bincrafters/conan-libmowgli-2"
     homepage = "https://github.com/atheme/libmowgli-2"
-    author = "Bincrafters <bincrafters@gmail.com>"
     license = "MIT"
     exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
