@@ -16,6 +16,10 @@ class Libmowgli2Conan(ConanFile):
     _source_subfolder = "source_subfolder"
     autotools = None
 
+    def build_requirements(self):
+        if tools.os_info.is_windows and "CONAN_BASH_PATH" not in os.environ:
+            self.build_requires("msys2/20161025")
+
     def config_options(self):
         if self.settings.os == 'Windows':
             self.options.remove("fPIC")
