@@ -9,7 +9,6 @@ class Libmowgli2Conan(ConanFile):
     url = "https://github.com/bincrafters/conan-libmowgli-2"
     homepage = "https://github.com/atheme/libmowgli-2"
     license = "MIT"
-    exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "with_openssl": [True, False]}
     default_options = {'shared': False, 'fPIC': True, 'with_openssl': True}
