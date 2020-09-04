@@ -29,7 +29,7 @@ class Libmowgli2Conan(ConanFile):
 
     def requirements(self):
         if self.options.with_openssl:
-            self.requires.add("openssl/1.1.0l")
+            self.requires("openssl/1.1.0l")
 
     def source(self):
         tools.get("{0}/archive/v{1}.tar.gz".format(self.homepage, self.version))
